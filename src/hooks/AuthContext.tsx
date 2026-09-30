@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import type { user } from "../interfaces/user";
 
 interface AuthContextType {
     isLogged: boolean;
@@ -18,6 +19,7 @@ export const api = axios.create({
 export function AuthProvidor({ children }: { children: React.ReactNode }) {
     const [isLogged, setIsLogged] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [user, setUser] = useState<user | null>(null);
 
     useEffect(() => {
         const token = localStorage.getItem("token");

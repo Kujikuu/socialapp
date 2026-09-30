@@ -30,7 +30,6 @@ export default function LoginPage() {
         const token = res.data.data.token;
 
         login(token);
-
         navigate("/main")
     }
 
