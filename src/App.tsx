@@ -7,7 +7,7 @@ import Profile from "./Pages/Main/Profile";
 import Settings from "./Pages/Main/Settings";
 import NotFound from "./Pages/NotFound";
 import { AuthProvidor } from "./hooks/AuthContext";
-
+import { Offline, Online } from "react-detect-offline";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -30,6 +30,8 @@ export default function App() {
   return (
     <AuthProvidor>
       <RouterProvider router={router}></RouterProvider>
+      <Online>Only shown when you're online</Online>
+      <Offline>Only shown offline (surprise!)</Offline>
     </AuthProvidor>
   )
 }
