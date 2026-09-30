@@ -15,7 +15,7 @@ import { NavLink, useNavigate } from "react-router";
 import { useAuth } from "../hooks/AuthContext";
 
 export default function AppNavbar() {
-    const { isLogged, logout } = useAuth();
+    const { isLogged, logoutUser, user } = useAuth();
     const navigate = useNavigate();
     return (
         <Navbar rounded>
@@ -32,15 +32,15 @@ export default function AppNavbar() {
                     }
                 >
                     <DropdownHeader>
-                        <span className="block text-sm">Bonnie Green</span>
-                        <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                        <span className="block text-sm">{user?.name || "User"}</span>
+                        <span className="block truncate text-sm font-medium">{user?.email || "user@example.com"}</span>
                     </DropdownHeader>
                     <DropdownItem href="/main/profile">Profile</DropdownItem>
                     <DropdownItem href="/main/settings">Settings</DropdownItem>
                     <DropdownDivider />
                     <DropdownItem onClick={() => {
                         if (isLogged) {
-                            logout();
+                            logoutUser();
                             navigate("/");
                         }
                     }}>Sign out</DropdownItem>

@@ -4,8 +4,9 @@ import type { user } from "../interfaces/user";
 
 interface AuthContextType {
     isLogged: boolean;
-    login: (token: string) => void;
-    logout: () => void;
+    loginUser: (token: string) => void;
+    logoutUser: () => void;
+    user: user | null;
     isLoading: boolean;
 }
 
@@ -30,20 +31,26 @@ export function AuthProvidor({ children }: { children: React.ReactNode }) {
         setIsLoading(false);
     }, []);
 
-    const login = (token: string) => {
+    const loginUser = (token: string) => {
         localStorage.setItem("token", token);
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         setIsLogged(true);
+
+        api.get("/users/profile-data").then((res) => {
+            setUser(res.data.data.user);
+        }).catch(() => {
+            setIsLogged(false);
+        });
     };
 
-    const logout = () => {
+    const logoutUser = () => {
         localStorage.removeItem("token");
         delete api.defaults.headers.common["Authorization"];
         setIsLogged(false);
     }
 
     return (
-        <AuthContext.Provider value={{ isLogged, isLoading, login, logout }}>
+        <AuthContext.Provider value={{ isLogged, isLoading, loginUser, logoutUser, user }}>
             {children}
         </AuthContext.Provider>
     );

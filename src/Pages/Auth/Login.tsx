@@ -7,7 +7,7 @@ import * as Zod from "zod"
 import { api, useAuth } from '../../hooks/AuthContext';
 
 export default function LoginPage() {
-    const { login } = useAuth();
+    const { loginUser } = useAuth();
 
     const loginSchema = Zod.object({
         email: Zod.string().nonempty("Email is required.").email("Invalid email address").trim().toLowerCase(),
@@ -29,7 +29,7 @@ export default function LoginPage() {
         const res = await api.post("/users/signin", data);
         const token = res.data.data.token;
 
-        login(token);
+        loginUser(token);
         navigate("/main")
     }
 

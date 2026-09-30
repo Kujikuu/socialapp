@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 export default function AuthLayout() {
-    const { isLogged, isLoading, logout } = useAuth();
+    const { isLogged, isLoading, logoutUser } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {

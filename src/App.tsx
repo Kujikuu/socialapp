@@ -32,7 +32,7 @@ export default function App() {
       <RouterProvider router={router}></RouterProvider>
       <Offline>
         <p className="fixed bottom-2 right-2 bg-red-700 text-white rounded-xl px-4 py-3">
-          You're offline now.
+          You are currently offline. Please check your internet connection.
         </p>
       </Offline>
     </AuthProvidor>
